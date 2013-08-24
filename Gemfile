@@ -23,3 +23,7 @@ gem 'thin'
 gem "private_pub"
 gem 'slim'
 gem "redis"
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
+end
