@@ -1,0 +1,7 @@
+.battlefield
+  table.map{cellspacing: 0, border:0, frame: 'border'}
+    tbody
+      -[0..49].each do |y|
+        td
+        -[0..49].each do |x|
+          tr.cell{id: "x#{x}y#{y}"}
