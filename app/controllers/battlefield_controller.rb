@@ -8,9 +8,7 @@ class BattlefieldController < ApplicationController
   end
 
   def make_move
-    PrivatePub.publish_to "/move",
-      coordinates: coordinates(params[:direction].map(&:to_i)),
-      player: current_player
+    @snake.move!(params[:direction].map(&:to_i))
     render nothing: true
   end
 
@@ -27,10 +25,6 @@ class BattlefieldController < ApplicationController
   end
 
   private
-
-    def coordinates(direction)
-      @snake.move!(direction)
-    end
 
     def get_ready_snake!
       @snake = Snake.new(cookies[:player_number])

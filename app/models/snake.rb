@@ -13,10 +13,22 @@ class Snake
   end
 
   def move!(direction)
-    step(direction) if can_move?(direction)
+    if can_move?(direction)
+      step(direction)
+    else
+      loose!
+    end
   end
 
   def destroy!
+    coordinates_for_destroy = @snake_segments.map {|e| e.split(',').map(&:to_i) }
+    PrivatePub.publish_to "/destroy", segments: @snake_segments.map {|e| e.split(',').map(&:to_i) }
+    $redis.del("snake_#{id}")
+  end
+
+  def loose!
+    PrivatePub.publish_to "/game_over", player: @id
+    destroy!
   end
 
 private
@@ -26,7 +38,7 @@ private
       previous_player_id = $redis.lindex('users', 0).to_i
       @id = previous_player_id + 1
       $redis.lpush "users", @id
-      $redis.lpush "snake_#{@id}", ["0,#{@id}"]
+      $redis.lpush "snake_#{@id}", ["0,#{@id * 3}"]
     end
   end
 
@@ -57,6 +69,9 @@ private
     new_head_coordinates[1] += direction[1]
 
     $redis.lpush "snake_#{@id}", "#{new_head_coordinates[0]},#{new_head_coordinates[1]}"
-    new_head_coordinates
+
+    PrivatePub.publish_to "/move",
+      coordinates: new_head_coordinates,
+      player: @id
   end
 end

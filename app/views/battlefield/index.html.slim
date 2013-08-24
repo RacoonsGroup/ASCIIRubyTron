@@ -1,4 +1,7 @@
 = subscribe_to "/move"
+= subscribe_to "/destroy"
+= subscribe_to "/game_over"
+
 - if signed_in?
   = link_to 'Я идиот, убейте меня кто-нибудь11 (покинуть игру)', quit_game_path
 - else
