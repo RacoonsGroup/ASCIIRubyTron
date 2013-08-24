@@ -6,8 +6,8 @@ module ShowBefore
     end
 
     private
-      def snake(id = 'snake')
-        $redis.lrange(id, 0, -1)
+      def snake(id = nil)
+        $redis.lrange("snake_#{id}", 0, -1)
       end
   end
 end
