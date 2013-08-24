@@ -36,7 +36,7 @@ module Moving
       new_head_coordinates[0] += direction[0]
       new_head_coordinates[1] += direction[1]
 
-      $redis.lpush 'id', "#{new_head_coordinates[0]},#{new_head_coordinates[1]}"
+      $redis.lpush id, "#{new_head_coordinates[0]},#{new_head_coordinates[1]}"
     end
   end
 end
