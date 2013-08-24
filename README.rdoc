@@ -1,2 +1,4 @@
 == README
 
+Game from Hackday made by Mahys and Graffzon.
+Feel free to play and contribute =)
