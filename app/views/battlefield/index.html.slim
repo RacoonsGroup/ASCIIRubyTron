@@ -14,5 +14,8 @@
         tr
           -100.times do |x|
             td.cell id= "x#{x}y#{y}"
-              = '¤' if @before.index("#{x},#{y}")!=nil
-
+              -@before.each do |snake|
+                -if snake.index("#{x},#{y}") != nil
+                  span style= "color: #{$SNAKE_COLORS[@before.index(snake)]}"
+                    = '¤'
+                  - break

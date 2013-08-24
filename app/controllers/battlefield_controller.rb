@@ -4,7 +4,8 @@ class BattlefieldController < ApplicationController
   def index
     users = $redis.lrange('users', 0, -1)
     @before = []
-    users.each {|u| @before += ShowBefore.all(u)}
+    users.each {|u| @before += [ShowBefore.all(u)]}
+    @current_player=current_player.to_i
   end
 
   def make_move
