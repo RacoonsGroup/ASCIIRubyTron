@@ -22,3 +22,4 @@ gem 'jbuilder', '~> 1.2'
 gem 'thin'
 gem "private_pub"
 gem 'slim'
+gem "redis"
