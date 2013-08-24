@@ -39,7 +39,7 @@ private
   end
 
   def not_wall?(new_head_coordinates)
-    new_head_coordinates.all?{|e| e >= 0 && e <= 39 }
+    new_head_coordinates.all?{|e| e >= 0 && e <= 99 }
   end
 
   def not_body?(new_head_coordinates)

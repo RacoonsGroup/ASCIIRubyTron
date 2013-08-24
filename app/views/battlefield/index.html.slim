@@ -1,10 +1,10 @@
 = subscribe_to "/move"
 .battlefield
-  table.map frame='border'
+  table.map frame='border' cellspacing="0" cellpadding="0"
     tbody
-      -40.times do |y|
+      -100.times do |y|
         tr
-          -50.times do |x|
+          -100.times do |x|
             td.cell id= "x#{x}y#{y}"
-              = 'o' if @before.index("#{x},#{y}")!=nil
+              = '¤' if @before.index("#{x},#{y}")!=nil
 
