@@ -11,15 +11,20 @@ module Moving
     head[0] += direction[0]
     head[1] += direction[1]
 
-    check_obstacle(head)
-
+    unless check_obstacle(head)
+      step(head)
+    else
+      #game_end
+    end
   end
 
   private
 
     def check_obstacle(coordinate)
-      if coordinate < 0 or 
-        
+      if coordinate.map{|e| e < 0} || coordinate.map { |e| e > 39 } || snake.map{|o| o == "{coordinate[0]},#{coordinate[1]}"}
+        true
+      else
+        false        
       end
     end
 
@@ -28,6 +33,6 @@ module Moving
     end
 
     def step(coordinate, id = 'snake')
-      $redis.lpush 'id', coordinate
+      $redis.lpush 'id', "{coordinate[0]},#{coordinate[1]}"
     end
 end
