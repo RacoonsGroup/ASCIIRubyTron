@@ -16,3 +16,4 @@
 //= require private_pub
 //= require game/detecting
 //= require game/moving
+//= require jquery_cookies
