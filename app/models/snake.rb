@@ -1,7 +1,8 @@
-module Moving
+class Snake
   class << self
 
-    def move!(direction)
+    def move!(direction, player_id)
+      @direction
       step(direction) if can_move?(direction)
     end
 
