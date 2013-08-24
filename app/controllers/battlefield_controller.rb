@@ -12,6 +12,6 @@ class BattlefieldController < ApplicationController
   private
 
     def coordinates(direction)
-      [1,3]
+      Moving.move!(direction)
     end
 end

@@ -1,39 +1,42 @@
 module Moving
   class << self
 
-    def get_head_coordinates
-      snake[0].split(',')
-      # snake = $redis.lindex('snake', 0).split(',')
-    end
-
     def move!(direction)
-      head=get_head_coordinates.map!(&:to_i)
-      head[0] += direction[0]
-      head[1] += direction[1]
-
-      unless check_obstacle(head)
-        step(head)
-      else
-        #game_end
-      end
+      step(direction) if can_move?(direction)
     end
 
-    private
+  private
 
-      def check_obstacle(coordinate)
-        if coordinate.map{|e| e < 0} || coordinate.map { |e| e > 39 } || snake.map{|o| o == "#{coordinate[0]},#{coordinate[1]}"}
-          true
-        else
-          false
-        end
-      end
+    def head_coordinates
+      snake[0].split(',').map!(&:to_i)
+    end
 
-      def snake(id = 'snake')
-        $redis.get(id)
-      end
+    def can_move?(direction)
+      new_head_coordinates = head_coordinates
+      new_head_coordinates[0] += direction[0]
+      new_head_coordinates[1] += direction[1]
 
-      def step(coordinate, id = 'snake')
-        $redis.lpush 'id', "{coordinate[0]},#{coordinate[1]}"
-      end
+      not_wall?(new_head_coordinates) && not_body?(new_head_coordinates)
+    end
+
+    def not_wall?
+      new_head_coordinates.all?{|e| e < 0 && e > 39 }
+    end
+
+    def not_body?
+      snake.all?{|e| e != "#{new_head_coordinates[0]},#{new_head_coordinates[1]}"}
+    end
+
+    def snake(id = 'snake')
+      $redis.get(id)
+    end
+
+    def step(direction, id = 'snake')
+      new_head_coordinates = head_coordinates
+      new_head_coordinates[0] += direction[0]
+      new_head_coordinates[1] += direction[1]
+
+      $redis.lpush 'id', "#{new_head_coordinates[0]},#{new_head_coordinates[1]}"
+    end
   end
 end
