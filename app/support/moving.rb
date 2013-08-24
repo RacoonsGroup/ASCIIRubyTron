@@ -7,7 +7,6 @@ module Moving
     end
 
     def move!(direction)
-      
       head=get_head_coordinates.map!(&:to_i)
       head[0] += direction[0]
       head[1] += direction[1]
@@ -38,4 +37,5 @@ module Moving
       def step(coordinate, id = 'snake')
         $redis.lpush 'id', "{coordinate[0]},#{coordinate[1]}"
       end
+  end
 end
