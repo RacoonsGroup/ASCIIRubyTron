@@ -22,11 +22,13 @@ module Moving
     private
 
       def check_obstacle(coordinate)
-        if coordinate.map{|e| e < 0} || coordinate.map { |e| e > 39 } || snake.map{|o| o == "{coordinate[0]},#{coordinate[1]}"}
-          true
-        else
-          false        
-        end
+        condition1 = false 
+        coordinate.map{|e| condition1 = (e < 0) || condition1}
+        condition2 = false
+        coordinate.map{|e| condition2 = (e > 39) || condition2} 
+        condition3 = false
+        snake.map{|o| condition3 = (o == "{coordinate[0]},#{coordinate[1]}") || condition3}
+        condition1 || condition2 || condition3        
       end
 
       def snake(id = 'snake')
