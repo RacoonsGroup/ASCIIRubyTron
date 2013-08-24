@@ -1,7 +1,10 @@
 class BattlefieldController < ApplicationController
 
   def index
-    $redis.lpush 'snake', ['0,0']
+    users = $redis.lrange('users', 0, -1)
+    @before = []
+    users.each {|u| @before += ShowBefore.all(u)}
+
   end
 
   def make_move

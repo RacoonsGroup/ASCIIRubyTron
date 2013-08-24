@@ -6,3 +6,5 @@
         tr
           -50.times do |x|
             td.cell id= "x#{x}y#{y}"
+              = 'o' if @before.index("#{x},#{y}")!=nil
+
