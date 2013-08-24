@@ -3,6 +3,8 @@ class Snake
   attr_reader :id
   attr_reader :snake_segments
 
+  $SNAKE_COLORS = ['#FFA812', '#00FF00', '#007DFF', '#993366', '#F984E5', '#FF9900', '#000080', '#00FF7F', '#BADBAD']
+
   def initialize(id)
     @id = id
     @snake_segments = $redis.lrange("snake_#{id}", 0, -1)

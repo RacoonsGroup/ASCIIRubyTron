@@ -4,13 +4,15 @@ class BattlefieldController < ApplicationController
   def index
     users = $redis.lrange('users', 0, -1)
     @before = []
-    users.each {|u| @before += ShowBefore.all(u)}
+    users.each {|u| @before += [ShowBefore.all(u)]}
+    @current_player=current_player.to_i
   end
 
   def make_move
     PrivatePub.publish_to "/move",
       coordinates: coordinates(params[:direction].map(&:to_i)),
-      player: current_player
+      player: current_player,
+      color: $SNAKE_COLORS[current_player.to_i]
     render nothing: true
   end
 
