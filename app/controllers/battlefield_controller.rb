@@ -14,6 +14,18 @@ class BattlefieldController < ApplicationController
     render nothing: true
   end
 
+  def quit_game
+    @snake.destroy!
+    cookies[:player_number] = nil
+    redirect_to root_path
+  end
+
+  def start_game
+    @snake.start!
+    cookies[:player_number] = @snake.id
+    redirect_to root_path
+  end
+
   private
 
     def coordinates(direction)
@@ -22,7 +34,6 @@ class BattlefieldController < ApplicationController
 
     def get_ready_snake!
       @snake = Snake.new(cookies[:player_number])
-      cookies[:player_number] = @snake.id
     end
 
     def current_player

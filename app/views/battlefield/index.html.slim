@@ -1,4 +1,9 @@
 = subscribe_to "/move"
+- if signed_in?
+  = link_to 'Я идиот, убейте меня кто-нибудь11 (покинуть игру)', quit_game_path
+- else
+  = link_to 'В бой, змеевоен11 (начать игру)', start_game_path
+
 .battlefield
   table.map frame='border' cellspacing="0" cellpadding="0"
     tbody

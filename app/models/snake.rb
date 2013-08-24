@@ -6,12 +6,17 @@ class Snake
   def initialize(id)
     @id = id
     @snake_segments = $redis.lrange("snake_#{id}", 0, -1)
+  end
+
+  def start!
     check_the_past
   end
 
-
   def move!(direction)
     step(direction) if can_move?(direction)
+  end
+
+  def destroy!
   end
 
 private
